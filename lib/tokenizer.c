@@ -4,7 +4,7 @@
 
 #define MAX_WORD_LENGTH 20
 
-void strtkns(FILE *file_ptr, char *tokens[]){
+int strtkns(FILE *file_ptr, char *tokens[]){
   if (ptr==NULL)
     return;
   int i,j=0;
@@ -28,7 +28,7 @@ void strtkns(FILE *file_ptr, char *tokens[]){
     c=getc(file_ptr);
   }
   
-  return;
+  return j;
 }
 
 void toLowerCase(char *word){
