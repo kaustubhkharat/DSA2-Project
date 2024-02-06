@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "tokenizer.h"
+
+#define MAX_WORD_LENGTH 20
+
+void strtkns(FILE *file_ptr, char *tokens[]){
+  if (ptr==NULL)
+    return;
+  int i,j=0;
+  char c, *str;
+  c=getc(file_ptr);
+
+  while (c != EOF){
+    str=(char*)malloc(sizeof(char)*MAX_WORD_LENGTH);
+    i=0;
+    while ( (i<20) && ((('a'<=c)&&(c<='z')) || (('A'<=c)&&(c<='Z'))) ){
+      str[i++]=c;
+      c=getc(file_ptr);
+    }
+    if (i==0){
+      free(str);
+      c=getc(file_ptr);
+      continue;
+    }
+    str[i]=0;
+    token[j++]=str;
+    c=getc(file_ptr);
+  }
+  
+  return;
+}
+
+void toLowerCase(char *word){
+  const int offset='a'-'A';
+  int i;
+  for (i=0; word[i]; i++){
+    if (('a' <= word[i]) && (word[i] <= 'z'))
+      word[i]-=offset;
+  }
+  return;
+}
