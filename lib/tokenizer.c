@@ -35,8 +35,8 @@ void toLowerCase(char *word){
   const int offset='a'-'A';
   int i;
   for (i=0; word[i]; i++){
-    if (('a' <= word[i]) && (word[i] <= 'z'))
-      word[i]-=offset;
+    if (('A'<= word[i]) && (word[i] <= 'Z'))
+      word[i]+=offset;
   }
   return;
 }
