@@ -31,9 +31,6 @@ void insert_trie(trie *t, char *word){
  while (word[i]){
    if (t_ptr->A[(word[i]-97)] == NULL){
     t_ptr->A[(word[i]-97)]=new_node_trie(false);
-    
-    if (t_ptr->isEndWord)
-      t_ptr->isEndWord=false;
    }
    t_ptr=t_ptr->A[(word[i])-97];
    i++;
