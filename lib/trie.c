@@ -29,13 +29,10 @@ void insert_trie(trie *t, char *word){
  t_ptr=*t;
 
  while (word[i]){
-   if (t_ptr->A[(word[i]%97)] == NULL){
-    t_ptr->A[(word[i]%97)]=new_node_trie(false);
-    
-    if (t_ptr->isEndWord)
-      t_ptr->isEndWord=false;
+   if (t_ptr->A[(word[i]-97)] == NULL){
+    t_ptr->A[(word[i]-97)]=new_node_trie(false);
    }
-   t_ptr=t_ptr->A[(word[i])%97];
+   t_ptr=t_ptr->A[(word[i])-97];
    i++;
   }
   t_ptr->isEndWord=true;
