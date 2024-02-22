@@ -12,5 +12,5 @@ typedef trieNode *trie;
 void init_trie(trie *t);
 void insert_trie(trie *t, char *word);
 void search_trie(trie t, char *prefix, char *result[]); // returns 5 matches
-
+char *get_one_word(trie t, char *prefix);
 #endif
