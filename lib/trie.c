@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "trie.h"
+//Anish
 
 void init_trie(trie *t){
   *t=NULL;
