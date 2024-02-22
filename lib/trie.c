@@ -1,11 +1,20 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "trie.h"
-//Anish
+
 
 void init_trie(trie *t){
   *t=NULL;
   return;
+}
+
+int isNULL(trie t){
+  if(t==NULL) return 0;
+  for(int i=0;i<26;i++){
+    if(t->A[i]==NULL) continue;
+    else return 0;
+  }
+  return 1;
 }
 
 trieNode *new_node_trie(bool isEnd){
@@ -26,8 +35,7 @@ void insert_trie(trie *t, char *word){
  if (*t == NULL)
    *t=new_node_trie(false);
  int i=0;
- trie t_ptr;
- t_ptr=*t;
+ trie t_ptr=*t;
 
  while (word[i]){
    if (t_ptr->A[(word[i]-97)] == NULL){
@@ -39,4 +47,16 @@ void insert_trie(trie *t, char *word){
   t_ptr->isEndWord=true;
 
   return;
+}
+
+void destroy(trie* t){
+  if(isNULL(*t)) {
+    free(t);
+    return;
+  }
+  for(int i=0;i<26;i++){
+    if((*t)->A[i]!=NULL) destroy(&(*t)->A[i]);
+    else free(t);
+  }
+  return;  
 }
