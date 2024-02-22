@@ -5,7 +5,7 @@
 #define MAX_WORD_LENGTH 20
 
 int strtkns(FILE *file_ptr, char *tokens[]){
-  if (ptr==NULL)
+  if (file_ptr==NULL)
     return;
   int i,j=0;
   char c, *str;
@@ -24,7 +24,7 @@ int strtkns(FILE *file_ptr, char *tokens[]){
       continue;
     }
     str[i]=0;
-    token[j++]=str;
+    tokens[j++]=str;
     c=getc(file_ptr);
   }
   

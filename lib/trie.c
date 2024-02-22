@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include <stdbool.h>
+#include <string.h>
 #include "trie.h"
 
 
@@ -49,6 +49,7 @@ void insert_trie(trie *t, char *word){
   return;
 }
 
+<<<<<<< HEAD
 void destroy(trie* t){
   if(isNULL(*t)) {
     free(t);
@@ -59,4 +60,26 @@ void destroy(trie* t){
     else free(t);
   }
   return;  
+=======
+char *get_one_word(trie t, char *prefix){
+  char *word;
+  int i=0,j=0;
+  trieNode *p;
+  p=t;
+  word=(char *)malloc(20*sizeof(char));
+  
+  for (;p && prefix[i];i++){
+    p=p->A[prefix[i]-'a'];
+  }
+
+  strcpy(word, prefix);
+  i=strlen(prefix);
+
+  while (p && p->isEndWord==false){
+    for (j=0;p->A[j]==NULL;j++);
+    word[i++]=(char)j+'a';
+    p=p->A[j];
+  }
+  return word;
+>>>>>>> 64cf101d56ea639da83c5e2f5b25618f15ce9a71
 }
