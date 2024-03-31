@@ -58,7 +58,8 @@ void destroy(trie* t){
     if((*t)->A[i]!=NULL) destroy(&(*t)->A[i]);
     else free(t);
   }
-  return;  
+  return; 
+} 
 char *get_one_word(trie t, char *prefix){
   char *word;
   int i=0,j=0;
@@ -80,3 +81,43 @@ char *get_one_word(trie t, char *prefix){
   }
   return word;
 }
+
+void helper(trieNode *t, char* prefix, char *res[], int *count){
+  if (*count > 4 || t==NULL || prefix==NULL)
+    return;
+  
+  if (t->isEndWord){
+    char *word;
+    word=(char *)malloc(20*sizeof(char));
+    strcpy(word, prefix);
+    res[*count]=word;
+    *count=*count+1;
+  }
+  int i,l=strlen(prefix);
+  
+  for (i=0;t && i<26;i++){
+    if (t && t->A[i]){
+      prefix[l]=i+'a';
+      prefix[l+1]=0;
+      helper(t->A[i], prefix, res, count);
+      prefix[l]=0;
+    }
+  }
+  return;
+}
+
+void search_trie(trie t, char *prefix, char *res[]){
+  int i,count=0;
+  char *word;
+  word=(char *)malloc(20*sizeof(char));
+  strcpy(word, prefix);
+  for (i=0;i<5;i++)
+    res[i]=NULL;
+
+  for (i=0;t && prefix[i];i++)
+    t=t->A[prefix[i]-'a'];
+
+  helper(t, word, res, &count);
+  return;
+}
+
