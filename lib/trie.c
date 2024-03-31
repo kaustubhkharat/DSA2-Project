@@ -49,7 +49,6 @@ void insert_trie(trie *t, char *word){
   return;
 }
 
-<<<<<<< HEAD
 void destroy(trie* t){
   if(isNULL(*t)) {
     free(t);
@@ -60,7 +59,6 @@ void destroy(trie* t){
     else free(t);
   }
   return;  
-=======
 char *get_one_word(trie t, char *prefix){
   char *word;
   int i=0,j=0;
@@ -81,5 +79,4 @@ char *get_one_word(trie t, char *prefix){
     p=p->A[j];
   }
   return word;
->>>>>>> 64cf101d56ea639da83c5e2f5b25618f15ce9a71
 }
