@@ -19,6 +19,7 @@ typedef struct{
 
 int strtkns(FILE *ptr, char *tokens[]);
 void toLowerCase(char *word);
+void initDataList(TokenDataList *l);
 void generateData(FILE *arr[], int fileArrSize, InvertedIndex *i);
 void AddToDataList(TokenDataList *l, TokenData *data);
 
