@@ -90,3 +90,14 @@ void generateData(FILE **arr, int fileArrSize, InvertedIndex *i){
   }
   return;
 }
+
+void delDataList(TokenDataList *l){
+  TokenData *p, *q;
+  p=l->front;
+  while (p){
+    q=p->next;
+    free(p);
+    p=q;
+  }
+  return;
+}

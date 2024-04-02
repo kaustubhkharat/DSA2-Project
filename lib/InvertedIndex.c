@@ -63,3 +63,15 @@ void searchInvertedIndex(InvertedIndex *i, char *word){
     return;
 }
 
+void destroyInvertedIndex(InvertedIndex *i){
+    int k;
+    for (k=0; k<i->size; k++){
+        delDataList(i->TokenArray[k]);
+    }
+    free(i->TokenArray);
+    i->size=0;
+    return;
+}
+
+
+

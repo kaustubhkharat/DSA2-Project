@@ -22,5 +22,6 @@ void toLowerCase(char *word);
 void initDataList(TokenDataList *l);
 void generateData(FILE *arr[], int fileArrSize, InvertedIndex *i);
 void AddToDataList(TokenDataList *l, TokenData *data);
+void delDataList(TokenDataList *l);
 
 #endif
