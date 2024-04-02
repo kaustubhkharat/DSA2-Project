@@ -45,4 +45,21 @@ int readFromFiles(char *files[], int filesLen, InvertedIndex *i){
     return 0;
 }
 
+void searchInvertedIndex(InvertedIndex *i, char *word){
+    int index=HashStr(word), k;
+    TokenDataList *p;
+    TokenData *q;
+    p=i->TokenArray[index];
+    if (p->front==NULL){
+        printf("NO OCCURRENCES OF WORD: %s", word);
+        return;
+    }
+    q=p->front;
+    printf("%s is present:\n", word);
+    for (k=0; q && k<10; k++){
+        printf("%d file in arguments and line number %d\n", q->documentNumber, q->lineNumber);
+        q=q->next;
+    }
+    return;
+}
 
