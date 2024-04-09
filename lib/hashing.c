@@ -4,7 +4,7 @@
 #include "trie.h"
 
 
-#define TABLE_SIZE 100
+#define TABLE_SIZE 1000
 #define MAX_COLLISIONS 50
 
 char *hash_table[TABLE_SIZE]; // Hash table to store strings
@@ -17,6 +17,7 @@ unsigned int hash(char *str) {
     }
     return hash % TABLE_SIZE;
 }
+
 void delete_hash_table() {
     for (int i = 0; i < TABLE_SIZE; i++) {
         if (hash_table[i] != NULL) {
@@ -35,12 +36,12 @@ int insert_hash(char *str) {
     }
     if (collisions == MAX_COLLISIONS) {
         printf("Unable to insert '%s': Maximum collisions reached\n", str);
-        return 1;
+        return -1;
     }
     if (hash_table[index] == NULL || strcmp(hash_table[index], str) != 0) {
         hash_table[index] = strdup(str); // Allocate memory for the string and insert into the hash table
     }
-    return 0;
+    return index;
 }
 
 int contains(char *str) {
@@ -52,6 +53,7 @@ int contains(char *str) {
     }
     return hash_table[index] != NULL && strcmp(hash_table[index], str) == 0;
 }
+
 void create_trie(trie *t)
 {
     int i;
@@ -65,3 +67,16 @@ void create_trie(trie *t)
     return;
 }
 
+int search_hash(char *str){
+    int hashIdx=hash(str), i=0;
+
+    while ((hash_table[hashIdx]) && (strcmp(hash_table[hashIdx], str)) && (i<MAX_COLLISIONS)){
+        hashIdx++;
+    }
+
+    if (i>=MAX_COLLISIONS || hash_table[hashIdx]==NULL){
+        return -1;
+    }
+
+    return hashIdx;
+}
