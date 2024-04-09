@@ -17,8 +17,8 @@ void init_inverted_index(InvertedIndex *i){
 }
 
 void addData(InvertedIndex *i, char *word, TokenData *data){
-    int index=HashStr(word);
-    if (index >=  MAX_WORD){
+    int index=insert_hash(word);
+    if (index==-1){
         printf("overflow\n");
         return;
     }
@@ -46,9 +46,12 @@ int readFromFiles(char *files[], int filesLen, InvertedIndex *i){
 }
 
 void searchInvertedIndex(InvertedIndex *i, char *word,int occurences){
-    int index=HashStr(word), k;
+    int index=search_hash(word), k;
     TokenDataList *p;
     TokenData *q;
+    if (index==-1){
+        return;
+    }
     p=i->TokenArray[index];
     if (p->front==NULL){
         printf("NO OCCURRENCES OF WORD: %s", word);
@@ -72,6 +75,3 @@ void destroyInvertedIndex(InvertedIndex *i){
     i->size=0;
     return;
 }
-
-
-
