@@ -1,6 +1,8 @@
 #include"lib/InvertedIndex.h"
 #include"lib/trie.h"
 #include"lib/hashing.h"
+#include<stdio.h>
+
 
 int main(int argc,char* argv[]){
     if(argc==1) return 1;
