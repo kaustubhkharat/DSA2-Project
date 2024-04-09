@@ -5,7 +5,7 @@
 
 
 int main(int argc,char* argv[]){
-    if(argc==1) return 1;
+    if(argc==0) return 1;
     char* files[argc-1];
     for(int i=1;i<argc;i++){
         files[i]=argv[i];
