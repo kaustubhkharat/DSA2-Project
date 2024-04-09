@@ -1,5 +1,6 @@
 #include"lib/InvertedIndex.h"
 #include"lib/trie.h"
+#include"lib/hashing.h"
 
 int main(int argc,char* argv[]){
     if(argc==1) return 1;
@@ -14,6 +15,7 @@ int main(int argc,char* argv[]){
 
     trie t;
     init_trie(&t);
+    create_trie(&t);
 
     printf("Menu:\n");
     printf("1.Search.\n");
@@ -22,20 +24,21 @@ int main(int argc,char* argv[]){
 
     int choice;
     int flag=1;
+    char word[20];
+    char prefix[20];
+
     while(flag){
         printf("Enter choice: ");
         scanf("%d",&choice);
         switch(choice){
             case 1:
-                char* word;
-                scnaf("%s",word);
+                scanf("%s",word);
                 int occurences;
                 printf("Enter the number of inferences: ");
                 scanf("%d",&occurences);
                 searchInvertedIndex(&i,word,occurences);
                 break;
             case 2:
-                char* prefix;
                 scanf("%s",prefix);
                 char* result[5];
                 search_trie(t,prefix,result);
