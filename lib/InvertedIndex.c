@@ -4,13 +4,14 @@
 #include "tokenizer.h"
 #include "hashing.h"
 
-#define MAX_WORD 1000
+#define MAX_WORD 200
 
 void init_inverted_index(InvertedIndex *i){
     int k;
     i->TokenArray=(TokenDataList **)malloc(MAX_WORD*sizeof(TokenDataList *));
     i->size=MAX_WORD;
     for (k=0; k<MAX_WORD; k++){
+        i->TokenArray[k]=(TokenDataList *)malloc(sizeof(TokenDataList));
         initDataList(i->TokenArray[k]);
     }
     return;
@@ -26,7 +27,7 @@ void addData(InvertedIndex *i, char *word, TokenData *data,hash_table* h){
     return;
 }
 
-int readFromFiles(char *files[], int filesLen, InvertedIndex *i){
+int readFromFiles(char *files[], int filesLen, InvertedIndex *i, hash_table *h){
     int j;
     FILE* arr[filesLen];
 
@@ -36,7 +37,7 @@ int readFromFiles(char *files[], int filesLen, InvertedIndex *i){
             return 1;
     }
 
-    generateData(arr, filesLen ,i);
+    generateData(arr, filesLen ,i, h);
 
     for (j=0; j<filesLen; j++){
         fclose(arr[j]);

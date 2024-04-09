@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "tokenizer.h"
 #include "InvertedIndex.h"
+#include "hashing.h"
 
 #define MAX_WORD_LENGTH 20
 
@@ -60,33 +61,34 @@ void AddToDataList(TokenDataList *l, TokenData *data){
   return;
 }
 
-void generateFileData(FILE *ptr, InvertedIndex *i, int documentNumber){
+void generateFileData(FILE *ptr, InvertedIndex *i, int documentNumber, hash_table *h){
   char c,*word=(char *)malloc(MAX_WORD_LENGTH*sizeof(char));
   int k=0, lineNumber=1;
   TokenData *data;
   while ((c=getc(ptr)) != EOF){
-    word=0;
     k=0;
-    while((k<MAX_WORD_LENGTH) && (('a'<=c)&&(c<='z') || ('A'<=c && c<='Z'))){
+    while((k<MAX_WORD_LENGTH) && (('a'<=c && c<='z') || ('A'<=c && c<='Z'))){
       word[k++]=c;
       c=getc(ptr);
     }
     word[k]=0;
-    data=(TokenData *)malloc(sizeof(TokenData));
-    data->documentNumber=documentNumber;
-    data->lineNumber=lineNumber;
-    toLowerCase(word);
-    addData(i, word, data);
+    if (word[0]){
+      data=(TokenData *)malloc(sizeof(TokenData));
+      data->documentNumber=documentNumber;
+      data->lineNumber=lineNumber;
+      toLowerCase(word);
+      addData(i, word, data, h);
+    }
     if (c=='\n'){
       lineNumber++;
     }
   }
   return;
 }
-void generateData(FILE **arr, int fileArrSize, InvertedIndex *i){
+void generateData(FILE **arr, int fileArrSize, InvertedIndex *i, hash_table *h){
   int k;
   for (k=0; k<fileArrSize; k++){
-    generateFileData(arr[k], i, k);
+    generateFileData(arr[k], i, k ,h);
   }
   return;
 }
