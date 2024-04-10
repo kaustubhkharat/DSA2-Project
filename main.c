@@ -5,18 +5,23 @@
 
 
 int main(int argc,char* argv[]){
-    if(argc==1) return 1;
+    if(argc==0) return 1;
+    char* files[argc-1];
+    for(int i=1;i<argc;i++){
+        files[i-1]=argv[i];
+    }
+
+    hash_table h;
+
+    init_hashtable(&h);
 
     InvertedIndex i;
     init_inverted_index(&i);
-    readFromFiles(argv+1,argc-1,&i);
-
-    hash_table h;
-    init_hashtable(&h);
+    readFromFiles(files,argc-1,&i, &h);
 
     trie t;
     init_trie(&t);
-    create_trie(&h,&t);
+    create_trie(&h, &t);
 
     printf("Menu:\n");
     printf("1.Search.\n");
@@ -37,7 +42,7 @@ int main(int argc,char* argv[]){
                 int occurences;
                 printf("Enter the number of inferences: ");
                 scanf("%d",&occurences);
-                searchInvertedIndex(&i,word,occurences,&h);
+                searchInvertedIndex(&i,word,occurences, &h);
                 break;
             case 2:
                 scanf("%s",prefix);
@@ -55,8 +60,7 @@ int main(int argc,char* argv[]){
                 break;
         }
     }
-    destroy(&t);
     destroyInvertedIndex(&i);
-    delete_hash_table(&h);
+    destroy(&t);
     return 0;
 }

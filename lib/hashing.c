@@ -5,16 +5,13 @@
 #include "hashing.h"
 
 
-#define TABLE_SIZE 1000
+#define TABLE_SIZE 200
 #define MAX_COLLISIONS 50
 
 void init_hashtable(hash_table* h){
     h->table=calloc(TABLE_SIZE,sizeof(char*));
     if(h->table==NULL){
         printf("Memory Allocation not done.\n");
-    }
-    for(int i=0;i<TABLE_SIZE;i++){
-        h->table[i]=calloc(20,sizeof(char));
     }
     return;
 }
