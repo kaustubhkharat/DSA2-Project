@@ -4,7 +4,7 @@
 #include "tokenizer.h"
 #include "hashing.h"
 
-#define MAX_WORD 200
+#define MAX_WORD 2000
 
 void init_inverted_index(InvertedIndex *i){
     int k;

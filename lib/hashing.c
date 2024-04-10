@@ -9,10 +9,7 @@
 #define MAX_COLLISIONS 50
 
 void init_hashtable(hash_table* h){
-    h->table=calloc(TABLE_SIZE,sizeof(char*));
-    if(h->table==NULL){
-        printf("Memory Allocation not done.\n");
-    }
+    h->table=(char**)calloc(TABLE_SIZE,sizeof(char*));
     return;
 }
 

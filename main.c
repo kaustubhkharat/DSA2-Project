@@ -12,7 +12,6 @@ int main(int argc,char* argv[]){
     }
 
     hash_table h;
-
     init_hashtable(&h);
 
     InvertedIndex i;
