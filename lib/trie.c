@@ -49,13 +49,13 @@ void insert_trie(trie *t, char *word){
   return;
 }
 
-void destroy(trie* t){
-  if(isNULL(*t)) {
+void destroy(trie t){
+  if(isNULL(t)) {
     free(t);
     return;
   }
   for(int i=0;i<26;i++){
-    if((*t)->A[i]!=NULL) destroy(&(*t)->A[i]);
+    if(t->A[i]!=NULL) destroy(t->A[i]);
     else free(t);
   }
   return; 

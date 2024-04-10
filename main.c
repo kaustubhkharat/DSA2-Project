@@ -61,6 +61,7 @@ int main(int argc,char* argv[]){
         }
     }
     destroyInvertedIndex(&i);
-    destroy(&t);
+    destroy(t);
+    delete_hash_table(&h);
     return 0;
 }

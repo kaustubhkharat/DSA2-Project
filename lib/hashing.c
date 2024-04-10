@@ -5,7 +5,7 @@
 #include "hashing.h"
 
 
-#define TABLE_SIZE 200
+#define TABLE_SIZE 2000
 #define MAX_COLLISIONS 50
 
 void init_hashtable(hash_table* h){
