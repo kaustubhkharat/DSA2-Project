@@ -9,7 +9,7 @@ void init_trie(trie *t){
 }
 
 int isNULL(trie t){
-  if(t==NULL) return 0;
+  if(t==NULL) return 1;
   for(int i=0;i<26;i++){
     if(t->A[i]==NULL) continue;
     else return 0;
@@ -60,6 +60,7 @@ void destroy(trie* t){
   }
   return; 
 } 
+
 char *get_one_word(trie t, char *prefix){
   char *word;
   int i=0,j=0;
