@@ -83,8 +83,10 @@ void generateFileData(FILE *ptr, InvertedIndex *i, int documentNumber, hash_tabl
       lineNumber++;
     }
   }
+  free(word);
   return;
 }
+
 void generateData(FILE **arr, int fileArrSize, InvertedIndex *i, hash_table *h){
   int k;
   for (k=0; k<fileArrSize; k++){

@@ -9,7 +9,11 @@
 #define MAX_COLLISIONS 50
 
 void init_hashtable(hash_table* h){
-    h->table=(char**)calloc(TABLE_SIZE,sizeof(char*));
+    int i;
+    h->table=(char**)malloc(TABLE_SIZE*sizeof(char*));
+    for (i=0; i<TABLE_SIZE; i++){
+        h->table[i]=NULL;
+    }
     return;
 }
 
@@ -29,6 +33,7 @@ void delete_hash_table(hash_table* h) {
             h->table[i] = NULL; // Mark the slot as empty
         }
     }
+    free(h->table);
 }
 
 int insert_hash(hash_table* h,char *str) {

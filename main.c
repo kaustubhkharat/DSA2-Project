@@ -2,6 +2,7 @@
 #include"lib/trie.h"
 #include"lib/hashing.h"
 #include<stdio.h>
+#include <stdlib.h>
 
 
 int main(int argc,char* argv[]){
@@ -49,6 +50,8 @@ int main(int argc,char* argv[]){
                 search_trie(t,prefix,result);
                 for(int i=0;i<5;i++){
                     printf("%d.%s\n",i+1,result[i]);
+                    if (result[i])
+                        free(result[i]);
                 }
                 break;
             case 3:
@@ -61,6 +64,7 @@ int main(int argc,char* argv[]){
     }
     destroyInvertedIndex(&i);
     destroy(t);
+    free(t->A);
     delete_hash_table(&h);
     return 0;
 }

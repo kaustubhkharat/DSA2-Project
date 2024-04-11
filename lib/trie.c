@@ -50,13 +50,14 @@ void insert_trie(trie *t, char *word){
 }
 
 void destroy(trie t){
-  if(isNULL(t)) {
-    free(t);
+  if (t==NULL){
     return;
   }
   for(int i=0;i<26;i++){
-    if(t->A[i]!=NULL) destroy(t->A[i]);
-    else free(t);
+    if(t->A[i]!=NULL) {
+      destroy(t->A[i]);
+      free(t->A[i]);
+    }
   }
   return; 
 } 
@@ -119,6 +120,7 @@ void search_trie(trie t, char *prefix, char *res[]){
     t=t->A[prefix[i]-'a'];
 
   helper(t, word, res, &count);
+  free(word);
   return;
 }
 
