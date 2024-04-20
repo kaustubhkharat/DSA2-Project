@@ -11,7 +11,7 @@ typedef trieNode *trie;
 
 void init_trie(trie *t);
 void insert_trie(trie *t, char *word);
-void search_trie(trie t, char *prefix, char *result[]); // returns 5 matches
+void search_trie(trie t, char *prefix, char *result[], int count); // returns 5 matches
 void destroy(trie t);
 int isNULL(trie t); //checks if all 26 nodes of a node are NULL
 char *get_one_word(trie t, char *prefix);

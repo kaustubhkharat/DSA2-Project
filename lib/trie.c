@@ -84,16 +84,16 @@ char *get_one_word(trie t, char *prefix){
   return word;
 }
 
-void helper(trieNode *t, char* prefix, char *res[], int *count){
-  if (*count > 4 || t==NULL || prefix==NULL)
+void helper(trieNode *t, char* prefix, char *res[], int *count, int maxCount){
+  if (*count < 0 || t==NULL || prefix==NULL)
     return;
   
   if (t->isEndWord){
     char *word;
     word=(char *)malloc(20*sizeof(char));
     strcpy(word, prefix);
-    res[*count]=word;
-    *count=*count+1;
+    res[maxCount-*count]=word;
+    *count=*count-1;
   }
   int i,l=strlen(prefix);
   
@@ -101,15 +101,15 @@ void helper(trieNode *t, char* prefix, char *res[], int *count){
     if (t && t->A[i]){
       prefix[l]=i+'a';
       prefix[l+1]=0;
-      helper(t->A[i], prefix, res, count);
+      helper(t->A[i], prefix, res, count, maxCount);
       prefix[l]=0;
     }
   }
   return;
 }
 
-void search_trie(trie t, char *prefix, char *res[]){
-  int i,count=0;
+void search_trie(trie t, char *prefix, char *res[], int count){
+  int i, k=count;
   char *word;
   word=(char *)malloc(20*sizeof(char));
   strcpy(word, prefix);
@@ -119,7 +119,7 @@ void search_trie(trie t, char *prefix, char *res[]){
   for (i=0;t && prefix[i];i++)
     t=t->A[prefix[i]-'a'];
 
-  helper(t, word, res, &count);
+  helper(t, word, res, &k, count);
   free(word);
   return;
 }

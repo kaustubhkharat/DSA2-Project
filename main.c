@@ -28,10 +28,11 @@ int main(int argc,char* argv[]){
     printf("2.AutoComplete.\n");
     printf("3.Quit.\n");
 
-    int choice;
+    int choice, count;
     int flag=1;
     char word[20];
     char prefix[20];
+    char *result[20];
 
     while(flag){
         printf("Enter choice: ");
@@ -46,9 +47,10 @@ int main(int argc,char* argv[]){
                 break;
             case 2:
                 scanf("%s",prefix);
-                char* result[5];
-                search_trie(t,prefix,result);
-                for(int i=0;i<5;i++){
+                printf("number of words: ");
+                scanf("%d",&count);
+                search_trie(t,prefix,result, count);
+                for(int i=0;result[i] && i<count;i++){
                     printf("%d.%s\n",i+1,result[i]);
                     if (result[i])
                         free(result[i]);
