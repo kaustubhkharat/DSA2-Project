@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "tokenizer.h"
+#include "InvertedIndex.h"
+#include "hashing.h"
 
 #define MAX_WORD_LENGTH 20
 
 int strtkns(FILE *file_ptr, char *tokens[]){
-  if (ptr==NULL)
-    return;
+  if (file_ptr==NULL)
+    return 0;
   int i,j=0;
   char c, *str;
   c=getc(file_ptr);
@@ -24,7 +26,7 @@ int strtkns(FILE *file_ptr, char *tokens[]){
       continue;
     }
     str[i]=0;
-    token[j++]=str;
+    tokens[j++]=str;
     c=getc(file_ptr);
   }
   
@@ -37,6 +39,69 @@ void toLowerCase(char *word){
   for (i=0; word[i]; i++){
     if (('A'<= word[i]) && (word[i] <= 'Z'))
       word[i]+=offset;
+  }
+  return;
+}
+
+void initDataList(TokenDataList *l){
+  l->front=l->end=NULL;
+  return;
+}
+
+void AddToDataList(TokenDataList *l, TokenData *data){
+  TokenData *r;
+  r=l->end;
+  if (r==NULL){
+    l->front=l->end=data;
+    return;
+  }
+
+  r->next=data;
+  l->end=data;
+  return;
+}
+
+void generateFileData(FILE *ptr, InvertedIndex *i, int documentNumber, hash_table *h){
+  char c,*word=(char *)malloc(MAX_WORD_LENGTH*sizeof(char));
+  int k=0, lineNumber=1;
+  TokenData *data;
+  while ((c=getc(ptr)) != EOF){
+    k=0;
+    while((k<MAX_WORD_LENGTH) && (('a'<=c && c<='z') || ('A'<=c && c<='Z'))){
+      word[k++]=c;
+      c=getc(ptr);
+    }
+    word[k]=0;
+    if (word[0]){
+      data=(TokenData *)malloc(sizeof(TokenData));
+      data->documentNumber=documentNumber;
+      data->lineNumber=lineNumber;
+      toLowerCase(word);
+      addData(i, word, data, h);
+    }
+    if (c=='\n'){
+      lineNumber++;
+    }
+  }
+  free(word);
+  return;
+}
+
+void generateData(FILE **arr, int fileArrSize, InvertedIndex *i, hash_table *h){
+  int k;
+  for (k=0; k<fileArrSize; k++){
+    generateFileData(arr[k], i, k ,h);
+  }
+  return;
+}
+
+void delDataList(TokenDataList *l){
+  TokenData *p, *q;
+  p=l->front;
+  while (p){
+    q=p->next;
+    free(p);
+    p=q;
   }
   return;
 }
