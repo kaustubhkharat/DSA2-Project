@@ -4,7 +4,6 @@
 #include "trie.h"
 #include "hashing.h"
 
-
 #define TABLE_SIZE 2000
 #define MAX_COLLISIONS 50
 
